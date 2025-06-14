@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz de Saúde Mental</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fefcfb;
+            color: #333;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2a9d8f;
+        }
+        p {
+            color: #333;
+        }
+        .question {
+            background: #ffffff;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 12px;
+            border: 2px solid #f0efeb;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .question:hover {
+            transform: scale(1.02);
+        }
+        button {
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin-top: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e76f51;
+        }
+        #result {
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+        input[type="radio"] {
+            accent-color: #2a9d8f;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz de Saúde Mental</h1>
+    <p style="text-align:center;">✨ Responda, descubra como está seu bem-estar e receba <strong>recomendações personalizadas de autocuidado!</strong> 😊</p>
+
+    <form id="quizForm">
+        <!-- PERGUNTAS -->
+        <div class="question">
+            <p>1. Como você avaliaria seu bem-estar emocional hoje?</p>
+            <label><input type="radio" name="emocional" value="alto"> Alto</label><br>
+            <label><input type="radio" name="emocional" value="moderado"> Moderado</label><br>
+            <label><input type="radio" name="emocional" value="baixo"> Baixo</label>
+        </div>
+
+        <div class="question">
+            <p>2. Como está a qualidade do seu sono?</p>
+            <label><input type="radio" name="sono" value="bom"> Boa</label><br>
+            <label><input type="radio" name="sono" value="regular"> Regular</label><br>
+            <label><input type="radio" name="sono" value="ruim"> Ruim</label>
+        </div>
+
+        <div class="question">
+            <p>3. Você sente energia suficiente durante o dia?</p>
+            <label><input type="radio" name="energia" value="alta"> Alta</label><br>
+            <label><input type="radio" name="energia" value="moderada"> Moderada</label><br>
+            <label><input type="radio" name="energia" value="baixa"> Baixa</label>
+        </div>
+
+        <div class="question">
+            <p>4. Seu nível de estresse atual é:</p>
+            <label><input type="radio" name="estresse" value="baixo"> Baixo</label><br>
+            <label><input type="radio" name="estresse" value="moderado"> Moderado</label><br>
+            <label><input type="radio" name="estresse" value="alto"> Alto</label>
+        </div>
+
+        <div class="question">
+            <p>5. Como está sua capacidade de concentração?</p>
+            <label><input type="radio" name="concentracao" value="boa"> Boa</label><br>
+            <label><input type="radio" name="concentracao" value="regular"> Regular</label><br>
+            <label><input type="radio" name="concentracao" value="ruim"> Ruim</label>
+        </div>
+
+        <div class="question">
+            <p>6. Você tem reservado tempo para lazer?</p>
+            <label><input type="radio" name="lazer" value="sim"> Sim</label><br>
+            <label><input type="radio" name="lazer" value="as_vezes"> Às vezes</label><br>
+            <label><input type="radio" name="lazer" value="nao"> Não</label>
+        </div>
+
+        <div class="question">
+            <p>7. Com que frequência pratica atividade física?</p>
+            <label><input type="radio" name="atividade" value="frequente"> Frequente</label><br>
+            <label><input type="radio" name="atividade" value="ocasional"> Ocasional</label><br>
+            <label><input type="radio" name="atividade" value="nenhuma"> Nenhuma</label>
+        </div>
+
+        <div class="question">
+            <p>8. Você se sente apoiado(a) por amigos ou familiares?</p>
+            <label><input type="radio" name="apoio" value="sim"> Sim</label><br>
+            <label><input type="radio" name="apoio" value="as_vezes"> Às vezes</label><br>
+            <label><input type="radio" name="apoio" value="nao"> Não</label>
+        </div>
+
+        <div class="question">
+            <p>9. Você sente prazer nas atividades do dia a dia?</p>
+            <label><input type="radio" name="prazer" value="sim"> Sim</label><br>
+            <label><input type="radio" name="prazer" value="as_vezes"> Às vezes</label><br>
+            <label><input type="radio" name="prazer" value="nao"> Não</label>
+        </div>
+
+        <div class="question">
+            <p>10. Com que frequência você pratica autocuidado (momentos para si, relaxamento, hobbies)?</p>
+            <label><input type="radio" name="autocuidado" value="frequente"> Frequente</label><br>
+            <label><input type="radio" name="autocuidado" value="ocasional"> Ocasional</label><br>
+            <label><input type="radio" name="autocuidado" value="nenhum"> Nenhum</label>
+        </div>
+
+        <div style="text-align:center;">
+            <button type="button" onclick="gerarResultado()">✨ Ver Resultado</button>
+        </div>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function gerarResultado() {
+            const form = document.getElementById('quizForm');
+            const data = new FormData(form);
+            let respostas = {};
+            let faltando = false;
+
+            for (let [key, value] of data.entries()) {
+                respostas[key] = value;
+            }
+
+            const perguntas = ["emocional", "sono", "energia", "estresse", "concentracao", "lazer", "atividade", "apoio", "prazer", "autocuidado"];
+            perguntas.forEach(p => {
+                if (!respostas[p]) {
+                    faltando = true;
+                }
+            });
+
+            if (faltando) {
+                alert("🚨 Por favor, responda todas as perguntas antes de gerar o resultado.");
+                return;
+            }
+
+            let resultado = "✅ Avaliação de Saúde Mental\n";
+            let dicas = "💡 Recomendações de Autocuidado:\n";
+
+            if (respostas.emocional === "baixo") dicas += "- Reserve tempo para atividades que tragam bem-estar emocional.\n";
+            if (respostas.sono === "ruim") dicas += "- Crie uma rotina relaxante antes de dormir.\n";
+            if (respostas.energia === "baixa") dicas += "- Inclua pausas revigorantes no seu dia.\n";
+            if (respostas.estresse === "alto") dicas += "- Pratique respiração consciente, mindfulness ou relaxamento.\n";
+            if (respostas.concentracao === "ruim") dicas += "- Desconecte-se de distrações e organize pequenas metas.\n";
+            if (respostas.lazer === "nao") dicas += "- Programe momentos de lazer e diversão semanalmente.\n";
+            if (respostas.atividade === "nenhuma") dicas += "- Movimente-se! Caminhadas e alongamentos fazem diferença.\n";
+            if (respostas.apoio === "nao") dicas += "- Construa ou fortaleça sua rede de apoio.\n";
+            if (respostas.prazer === "nao") dicas += "- Redescubra atividades que te trazem satisfação.\n";
+            if (respostas.autocuidado === "nenhum") dicas += "- Inclua momentos só seus, mesmo que curtos, diariamente.\n";
+
+            if (dicas === "💡 Recomendações de Autocuidado:\n") {
+                dicas += "- Você está cuidando muito bem de si! Continue assim. 🌟\n";
+            }
+
+            const resumo = `${resultado}\n${dicas}`;
+
+            document.getElementById('result').innerText = resumo;
+        }
+    </script>
+
+</body>
+</html>
